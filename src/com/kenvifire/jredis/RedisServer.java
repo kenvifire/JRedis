@@ -1,6 +1,7 @@
 package com.kenvifire.jredis;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 
@@ -21,7 +22,7 @@ public class RedisServer {
     int shutdown_asap;
     int activerehasing;
     String requirepass;
-    Stirng pidfile;
+    String pidfile;
     int arch_bit;
     int cronloops;
     String runid;
@@ -141,6 +142,161 @@ public class RedisServer {
     SDS aof_child_diff;
 
     /*RDB persistence */
+    long dirty;
+    long dirty_before_gbsave;
+    long rdb_child_bpid;
+    List<SavaParam> saveparams;
+    int saveparamslen;
+    String rdb_filename;
+    int rdb_compression;
+    int rdb_checksum;
+    Date lastsave;
+    Date lastgbsave_try;
+    Date rdb_save_time_last;
+    Date rdb_save_time_start;
+    int rdb_child_type;
+    int lastgbsave_status;
+    int stop_writes_on_gbsave_err;
+    int rdb_pip_write_result_to_parent;
+    int rdb_pipe_read_result_from_child;
+
+    /* Propagation of commands in AOF */
+    List<RedisOp> also_propagate;
+    /* Logging */
+    String logfile;
+    int syslog_enabled;
+    String syslog_ident;
+    int syslog_facility;
+    /* Replication (master) */
+    int slaveseldb;
+    long master_repl_offset;
+    int repl_ping_slave_period;
+    String repl_backlog;
+    long repl_backlog_size;
+    long repl_backlog_histlen;
+    long repl_backlog_idx;
+    long repl_backlog_off;
+
+    Date repl_backlog_time_limit;
+
+    Date repl_no_slaves_since;
+
+    int repl_min_slaves_to_write;
+    int repl_min_slaves_max_lag;
+    int repl_good_slaves_count;
+    int repl_diskless_sync;
+    int repl_diskless_sync_delay;
+
+    /* Replication (slave) */
+
+    String masterauth;
+    String masterhost;
+    int masterport;
+    int repl_timeout;
+    RedisClient master;
+    RedisClient cached_master;
+    int repl_syncio_timeout;
+    int repl_state;
+    long repl_transfer_size;
+    long repl_transfer_read;
+    long repl_transfer_last_fsync_off;
+    int repl_transfer_s;
+    int repl_transfer_fd;
+    String repl_transfer_tmpfile;
+    Date repl_transfer_lastio;
+    int repl_serve_stale_data;
+    int repl_slave_ro;
+    Date repl_down_since;
+    int repl_disable_tcp_nodelay;
+    int slave_priority;
+    String repl_master_runid;
+    long repl_master_initial_offset;
+
+    /* Replication script cache. */
+    Dict repl_scriptcache_dict;
+    List<ReplScriptCache> repl_scriptcache_fifo;
+    int repl_scriptcache_size;
+
+    /* Synchronous replication. */
+    List<ClientsAwaitingAck> clients_awaiting_acks;
+    int get_ack_from_slaves;
+    /* Limits */
+    int maxclients;
+    long maxmemory;
+    int maxmemory_policy;
+    int maxmemory_samples;
+    /* Blocked clients */
+    int bpop_blocked_clients;
+    List unblocked_clients;
+    List ready_keys;
+
+    /* Sort parameters - qsort_r()is only available under BSD
+    so we have to take this state global, in order to pass it
+    to sortCompare()
+     */
+    int sort_desc;
+    int sort_appha;
+    int sort_bypattern;
+    int sort_store;
+
+    /* Zip structure config, see redis.conf for more information */
+    long hash_max_ziplist_entries;
+    long hash_max_ziplist_value;
+    long set_max_intset_entries;
+    long zset_max_ziplist_entries;
+    long zset_max_ziplist_values;
+    long hll_sparse_max_bytes;
+
+    /* List parameters */
+    int list_max_ziplist_size;
+    int list_compress_depth;
+
+    /* time cache */
+    Date unixtime;
+    Date mstime;
+
+    /* Pubsub */
+    Dict pubsub_channels;
+    List pubsub_patterns;
+    int notify_keyspace_events;
+
+    /* Cluster */
+    int cluster_enabled;
+    Date cluster_node_timeout;
+    String cluster_configfile;
+    ClusterState cluster;
+    int cluster_migration_barrier;
+    int cluster_slave_validity_factor;
+    int cluster_require_full_coverage;
+
+    /* Scripting */
+    LuaState lua;
+    RedisClient lua_client;
+    RedisClient lua_caller;
+    Dict lua_scripts;
+    Date lua_time_limit;
+    Date lua_time_start;
+    int lua_write_dirty;
+    int lua_random_dirty;
+    int lua_timedout;
+    int lua_kill;
+
+    /* Latency monitor */
+    long latency_monitor_threshold;
+    Dict latency_events;
+
+    /* Assert & bug reporting */
+    String assert_failed;
+    String assert_file;
+    int assert_line;
+    int bug_report_start;
+    int watchdog_period;
+
+    /* System hardward info */
+    long system_memory_size;
+
+
+
 
 
 

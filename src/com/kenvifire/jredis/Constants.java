@@ -11,4 +11,5 @@ public class Constants {
     public static final int REDIS_METRIC_COUNT = 3;
 
     public static final int REDIS_CLIENT_TYPE_COUNT = 3;
+
 }
