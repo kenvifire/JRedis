@@ -26,7 +26,7 @@ public class RedisServer {
     int arch_bit;
     int cronloops;
     String runid;
-    int sentinel_mode;
+    boolean sentinel_mode;
 
     /*Newworking*/
     int port;
@@ -294,6 +294,18 @@ public class RedisServer {
 
     /* System hardward info */
     long system_memory_size;
+
+    private static final RedisServer redisServerInstance = new RedisServer();
+
+    private RedisServer(){
+
+    };
+
+    public static RedisServer getInstance(){
+        return redisServerInstance;
+    }
+
+
 
 
 
