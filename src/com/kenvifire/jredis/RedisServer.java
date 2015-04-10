@@ -20,7 +20,7 @@ public class RedisServer {
     public AeEventLoop el;
     public Lock lrulock;
     public int shutdown_asap;
-    public int activerehasing;
+    public int activerehashing;
     public String requirepass;
     public String pidfile;
     public int arch_bit;
@@ -78,7 +78,7 @@ public class RedisServer {
     public List<SlowLog> slowlog = new ArrayList<SlowLog>();
     public long slowlog_entry_id;
     public long slowlog_log_slower_than;
-    public long slowLong_max_len;
+    public long slowLog_max_len;
     public long resident_set_size;
     public long stat_net_input_bytes;
     public long stat_net_output_bytes;
@@ -156,7 +156,7 @@ public class RedisServer {
     public Date rdb_save_time_start;
     public int rdb_child_type;
     public int lastgbsave_status;
-    public int stop_writes_on_gbsave_err;
+    public int stop_writes_on_bgsave_err;
     public int rdb_pip_write_result_to_parent;
     public int rdb_pipe_read_result_from_child;
 
@@ -177,7 +177,7 @@ public class RedisServer {
     public long repl_backlog_idx;
     public long repl_backlog_off;
 
-    public Date repl_backlog_time_limit;
+    public long repl_backlog_time_limit;
 
     public Date repl_no_slaves_since;
 
@@ -206,7 +206,7 @@ public class RedisServer {
     public Date repl_transfer_lastio;
     public int repl_serve_stale_data;
     public int repl_slave_ro;
-    public Date repl_down_since;
+    public long repl_down_since;
     public int repl_disable_tcp_nodelay;
     public int slave_priority;
     public String repl_master_runid;
@@ -244,7 +244,7 @@ public class RedisServer {
     public    long hash_max_ziplist_value;
     public    long set_max_intset_entries;
     public    long zset_max_ziplist_entries;
-    public    long zset_max_ziplist_values;
+    public    long zset_max_ziplist_value;
     public    long hll_sparse_max_bytes;
 
     /* List parameters */
@@ -274,7 +274,7 @@ public class RedisServer {
     public    RedisClient lua_client;
     public    RedisClient lua_caller;
     public    Dict lua_scripts;
-    public    Date lua_time_limit;
+    public    long lua_time_limit;
     public    Date lua_time_start;
     public    int lua_write_dirty;
     public    int lua_random_dirty;
