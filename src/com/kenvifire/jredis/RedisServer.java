@@ -113,7 +113,7 @@ public class RedisServer {
     public long aof_rewrite_min_size;
     public long aof_rewrite_base_size;
     public long aof_current_size;
-    public int aof_rewrite_schedules;
+    public int aof_rewrite_scheduled;
     public int aof_child_pid;
     public List<AofRewriteBufBlocks> aof_rewrite_buf_blocks;
     public SDS aof_buf;

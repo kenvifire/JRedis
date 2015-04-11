@@ -1,5 +1,7 @@
 package com.kenvifire.jredis;
 
+import java.util.Calendar;
+
 import static com.kenvifire.jredis.Constants.*;
 
 /**
@@ -48,10 +50,11 @@ public class Server {
         server.client_max_query_buf_len = REDIS_MAX_QUERYBUF_LEN;
         server.saveparams = null;
         server.loading = false;
-        server.logfile = zstrdup(REDIS_DEFAULT_LOGFILE);
+        server.logfile = new String(REDIS_DEFAULT_LOGFILE);
         server.syslog_enabled = REDIS_DEFAULT_SYSLOG_ENABLED;
-        server.syslog_ident = zstrdup(REDIS_DEFAULT_SYSLOG_IDENT);
-        server.syslog_facility = LOG_LOCAL0;
+        server.syslog_ident = new String(REDIS_DEFAULT_SYSLOG_IDENT);
+        //server.syslog_facility = LOG_LOCAL0;
+        server.syslog_facility = 16<<3;
         server.daemonize = REDIS_DEFAULT_DAEMONIZE;
         server.supervised = 0;
         server.supervised_mode = REDIS_SUPERVISED_NONE;
@@ -62,7 +65,7 @@ public class Server {
         server.aof_rewrite_min_size = REDIS_AOF_REWRITE_MIN_SIZE;
         server.aof_rewrite_base_size = 0;
         server.aof_rewrite_scheduled = 0;
-        server.aof_last_fsync = time(NULL);
+        server.aof_last_fsync = Calendar.getInstance().getTimeInMillis();
         server.aof_rewrite_time_last = -1;
         server.aof_rewrite_time_start = -1;
         server.aof_lastbgrewrite_status = REDIS_OK;
@@ -72,10 +75,10 @@ public class Server {
         server.aof_flush_postponed_start = 0;
         server.aof_rewrite_incremental_fsync = REDIS_DEFAULT_AOF_REWRITE_INCREMENTAL_FSYNC;
         server.aof_load_truncated = REDIS_DEFAULT_AOF_LOAD_TRUNCATED;
-        server.pidfile = NULL;
-        server.rdb_filename = zstrdup(REDIS_DEFAULT_RDB_FILENAME);
-        server.aof_filename = zstrdup(REDIS_DEFAULT_AOF_FILENAME);
-        server.requirepass = NULL;
+        server.pidfile = null;
+        server.rdb_filename = new String(REDIS_DEFAULT_RDB_FILENAME);
+        server.aof_filename = new String(REDIS_DEFAULT_AOF_FILENAME);
+        server.requirepass = null;
         server.rdb_compression = REDIS_DEFAULT_RDB_COMPRESSION;
         server.rdb_checksum = REDIS_DEFAULT_RDB_CHECKSUM;
         server.stop_writes_on_bgsave_err = REDIS_DEFAULT_STOP_WRITES_ON_BGSAVE_ERROR;
@@ -105,9 +108,9 @@ public class Server {
         server.cluster_slave_validity_factor = REDIS_CLUSTER_DEFAULT_SLAVE_VALIDITY;
         server.cluster_require_full_coverage = REDIS_CLUSTER_DEFAULT_REQUIRE_FULL_COVERAGE;
         server.cluster_configfile = zstrdup(REDIS_DEFAULT_CLUSTER_CONFIG_FILE);
-        server.lua_caller = NULL;
+        server.lua_caller = null;
         server.lua_time_limit = REDIS_LUA_TIME_LIMIT;
-        server.lua_client = NULL;
+        server.lua_client = null;
         server.lua_timedout = 0;
         server.migrate_cached_sockets = dictCreate( & migrateCacheDictType, NULL);
         server.next_client_id = 1; /* Client IDs, start from 1 .*/
@@ -138,13 +141,13 @@ public class Server {
         server.master_repl_offset = 0;
 
     /* Replication partial resync backlog */
-        server.repl_backlog = NULL;
+        server.repl_backlog = null;
         server.repl_backlog_size = REDIS_DEFAULT_REPL_BACKLOG_SIZE;
         server.repl_backlog_histlen = 0;
         server.repl_backlog_idx = 0;
         server.repl_backlog_off = 0;
         server.repl_backlog_time_limit = REDIS_DEFAULT_REPL_BACKLOG_TIME_LIMIT;
-        server.repl_no_slaves_since = time(NULL);
+        server.repl_no_slaves_since = Calendar.getInstance().getTimeInMillis();
 
     /* Client output buffer limits */
         for (j = 0; j < REDIS_CLIENT_TYPE_COUNT; j++)
