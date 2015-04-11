@@ -338,4 +338,32 @@ public class Constants {
     public static final int REDIS_NOTIFY_EVICTED = (1 << 9); /* e */
     public static final int REDIS_NOTIFY_ALL = (REDIS_NOTIFY_GENERIC
             |REDIS_NOTIFY_STRING|REDIS_NOTIFY_LIST|REDIS_NOTIFY_SET|REDIS_NOTIFY_HASH|REDIS_NOTIFY_ZSET|REDIS_NOTIFY_EXPIRED|REDIS_NOTIFY_EVICTED); /* A */
+
+
+    /* ----- Cluster Related ----------*/
+    public static final int REDIS_CLUSTER_SLOTS = 16384;
+    public static final int REDIS_CLUSTER_OK = 0; /* Everything looks ok */
+    public static final int REDIS_CLUSTER_FAIL = 1; /* The cluster can't work */
+    public static final int REDIS_CLUSTER_NAMELEN = 40; /* sha1 hex length */
+    public static final int REDIS_CLUSTER_PORT_INCR = 10000; /* Cluster port = baseport + PORT_INCR */
+
+    /* The following defines are amount of time, sometimes expressed as
+     * multiplicators of the node timeout value (when ending with MULT). */
+    public static final int REDIS_CLUSTER_DEFAULT_NODE_TIMEOUT = 15000;
+    public static final int REDIS_CLUSTER_DEFAULT_SLAVE_VALIDITY = 10; /* Slave max data age factor. */
+    public static final int REDIS_CLUSTER_DEFAULT_REQUIRE_FULL_COVERAGE = 1;
+    public static final int REDIS_CLUSTER_FAIL_REPORT_VALIDITY_MULT = 2; /* Fail report validity. */
+    public static final int REDIS_CLUSTER_FAIL_UNDO_TIME_MULT = 2; /* Undo fail if master is back. */
+    public static final int REDIS_CLUSTER_FAIL_UNDO_TIME_ADD = 10; /* Some additional time. */
+    public static final int REDIS_CLUSTER_FAILOVER_DELAY = 5; /* Seconds */
+    public static final int REDIS_CLUSTER_DEFAULT_MIGRATION_BARRIER = 1;
+    public static final int REDIS_CLUSTER_MF_TIMEOUT = 5000; /* Milliseconds to do a manual failover. */
+    public static final int REDIS_CLUSTER_MF_PAUSE_MULT = 2; /* Master pause manual failover mult. */
+
+    /* Redirection errors returned by getNodeByQuery(). */
+    public static final int REDIS_CLUSTER_REDIR_NONE = 0; /* Node can serve the request. */
+    public static final int REDIS_CLUSTER_REDIR_CROSS_SLOT = 1; /* Keys in different slots. */
+    public static final int REDIS_CLUSTER_REDIR_UNSTABLE = 2; /* Keys in slot resharding. */
+    public static final int REDIS_CLUSTER_REDIR_ASK = 3; /* -ASK redirection required. */
+    public static final int REDIS_CLUSTER_REDIR_MOVED = 4; /* -MOVED redirection required. */
 }

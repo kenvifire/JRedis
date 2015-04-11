@@ -107,7 +107,7 @@ public class Server {
         server.cluster_migration_barrier = REDIS_CLUSTER_DEFAULT_MIGRATION_BARRIER;
         server.cluster_slave_validity_factor = REDIS_CLUSTER_DEFAULT_SLAVE_VALIDITY;
         server.cluster_require_full_coverage = REDIS_CLUSTER_DEFAULT_REQUIRE_FULL_COVERAGE;
-        server.cluster_configfile = zstrdup(REDIS_DEFAULT_CLUSTER_CONFIG_FILE);
+        server.cluster_configfile = new String(REDIS_DEFAULT_CLUSTER_CONFIG_FILE);
         server.lua_caller = null;
         server.lua_time_limit = REDIS_LUA_TIME_LIMIT;
         server.lua_client = null;
@@ -123,11 +123,11 @@ public class Server {
         appendServerSaveParams(300, 100);  /* save after 5 minutes and 100 changes */
         appendServerSaveParams(60, 10000); /* save after 1 minute and 10000 changes */
     /* Replication related */
-        server.masterauth = NULL;
-        server.masterhost = NULL;
+        server.masterauth = null;
+        server.masterhost = null;
         server.masterport = 6379;
-        server.master = NULL;
-        server.cached_master = NULL;
+        server.master = null;
+        server.cached_master = null;
         server.repl_master_initial_offset = -1;
         server.repl_state = REDIS_REPL_NONE;
         server.repl_syncio_timeout = REDIS_REPL_SYNCIO_TIMEOUT;

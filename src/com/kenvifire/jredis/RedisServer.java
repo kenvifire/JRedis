@@ -125,6 +125,7 @@ public class RedisServer {
     public long aof_rewrite_time_start;
     public int aof_lastbgrewrite_status;
     public long aof_delayed_fsync;
+    public int aof_rewrite_incremental_fsync;
     public int aof_last_write_status;
     public int aof_last_write_errno;
     public int aof_load_truncated;
@@ -179,7 +180,7 @@ public class RedisServer {
 
     public long repl_backlog_time_limit;
 
-    public Date repl_no_slaves_since;
+    public long repl_no_slaves_since;
 
     public int repl_min_slaves_to_write;
     public int repl_min_slaves_max_lag;
@@ -262,7 +263,7 @@ public class RedisServer {
 
     /* Cluster */
     public    int cluster_enabled;
-    public    Date cluster_node_timeout;
+    public    int cluster_node_timeout;
     public    String cluster_configfile;
     public    ClusterState cluster;
     public    int cluster_migration_barrier;
