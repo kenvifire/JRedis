@@ -3,7 +3,6 @@ package com.kenvifire.jredis;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
 
 /**
  * Created by hannahzhang on 15/4/8.
@@ -18,7 +17,7 @@ public class RedisServer {
     public Dict commands;
     public Dict orig_commands;
     public AeEventLoop el;
-    public Lock lrulock;
+    public int lruclock;
     public int shutdown_asap;
     public int activerehashing;
     public String requirepass;
@@ -146,7 +145,7 @@ public class RedisServer {
     public long dirty;
     public long dirty_before_gbsave;
     public long rdb_child_bpid;
-    public List<SavaParam> saveparams;
+    public List<SaveParam> saveparams;
     public int saveparamslen;
     public String rdb_filename;
     public int rdb_compression;
@@ -305,6 +304,17 @@ public class RedisServer {
 
     public static RedisServer getInstance() {
         return redisServerInstance;
+    }
+
+    public void appendServerSaveParams(long seconds, int changes){
+        if(this.saveparams == null){
+            saveparams = new ArrayList<SaveParam>();
+        }
+        SaveParam saveParam = new SaveParam();
+        saveParam.setSeconds(seconds);
+        saveParam.setChanges(changes);
+
+        saveparams.add(saveParam);
     }
 
 

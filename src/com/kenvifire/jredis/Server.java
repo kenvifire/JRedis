@@ -112,16 +112,17 @@ public class Server {
         server.lua_time_limit = REDIS_LUA_TIME_LIMIT;
         server.lua_client = null;
         server.lua_timedout = 0;
-        server.migrate_cached_sockets = dictCreate( & migrateCacheDictType, NULL);
+        server.migrate_cached_sockets = Dict.createDict( new MigrateCacheDictType() , null);
         server.next_client_id = 1; /* Client IDs, start from 1 .*/
         server.loading_process_events_interval_bytes = (1024 * 1024 * 2);
 
         server.lruclock = getLRUClock();
-        resetServerSaveParams();
+        server.saveparams = null;
+        server.saveparamslen = 0;
 
-        appendServerSaveParams(60 * 60, 1);  /* save after 1 hour and 1 change */
-        appendServerSaveParams(300, 100);  /* save after 5 minutes and 100 changes */
-        appendServerSaveParams(60, 10000); /* save after 1 minute and 10000 changes */
+        server.appendServerSaveParams(60 * 60, 1);  /* save after 1 hour and 1 change */
+        server.appendServerSaveParams(300, 100);  /* save after 5 minutes and 100 changes */
+        server.appendServerSaveParams(60, 10000); /* save after 1 minute and 10000 changes */
     /* Replication related */
         server.masterauth = null;
         server.masterhost = null;
@@ -162,8 +163,8 @@ public class Server {
     /* Command table -- we initiialize it here as it is part of the
      * initial configuration, since command names may be changed via
      * redis.conf using the rename-command directive. */
-        server.commands = dictCreate( & commandTableDictType, NULL);
-        server.orig_commands = dictCreate( & commandTableDictType, NULL);
+        server.commands = Dict.createDict( new CommandTableDictType() , null);
+        server.orig_commands = Dict.createDict(new CommandTableDictType() , null);
         populateCommandTable();
         server.delCommand = lookupCommandByCString("del");
         server.multiCommand = lookupCommandByCString("multi");
@@ -185,6 +186,46 @@ public class Server {
         server.bug_report_start = 0;
         server.watchdog_period = 0;
 
+    }
+
+    public static int getLRUClock() {
+        return (int)(Calendar.getInstance().getTimeInMillis()/Long.valueOf(REDIS_LRU_CLOCK_RESOLUTION)) & REDIS_LRU_CLOCK_MAX;
+    }
+
+    void populateCommandTable() {
+        int j;
+
+        for (j = 0; j < redisCommandTable.size(); j++) {
+            RedisCommand c = redisCommandTable.get(j);
+            String f = c.getSflags();
+            int retval1, retval2;
+            int i =0;
+            while(i < f.length()) {
+                switch(f.charAt(i)) {
+                    case 'w': c.setFlag(c.getFlag() | REDIS_CMD_WRITE ); break;
+                    case 'r': c.setFlag(c.getFlag()| REDIS_CMD_READONLY); break;
+                    case 'm': c.setFlag(c.getFlag()| REDIS_CMD_DENYOOM); break;
+                    case 'a': c.setFlag(c.getFlag()| REDIS_CMD_ADMIN); break;
+                    case 'p': c.setFlag(c.getFlag()| REDIS_CMD_PUBSUB); break;
+                    case 's': c.setFlag(c.getFlag()| REDIS_CMD_NOSCRIPT); break;
+                    case 'R': c.setFlag(c.getFlag()| REDIS_CMD_RANDOM); break;
+                    case 'S': c.setFlag(c.getFlag()| REDIS_CMD_SORT_FOR_SCRIPT); break;
+                    case 'l': c.setFlag(c.getFlag()| REDIS_CMD_LOADING); break;
+                    case 't': c.setFlag(c.getFlag()| REDIS_CMD_STALE); break;
+                    case 'M': c.setFlag(c.getFlag()| REDIS_CMD_SKIP_MONITOR); break;
+                    case 'k': c.setFlag(c.getFlag()| REDIS_CMD_ASKING); break;
+                    case 'F': c.setFlag(c.getFlag()| REDIS_CMD_FAST); break;
+                    default: throw new RedisRuntimeException("Unsupported command flag"); break;
+                }
+                i++;
+            }
+
+            retval1 = dictAdd(server.commands, sdsnew(c->name), c);
+        /* Populate an additional dictionary that will be unaffected
+         * by rename-command statements in redis.conf. */
+            retval2 = dictAdd(server.orig_commands, sdsnew(c->name), c);
+            redisAssert(retval1 == DICT_OK && retval2 == DICT_OK);
+        }
     }
 
 

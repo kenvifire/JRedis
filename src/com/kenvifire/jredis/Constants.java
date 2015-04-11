@@ -1,5 +1,8 @@
 package com.kenvifire.jredis;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by hannahzhang on 15/4/8.
  */
@@ -366,4 +369,14 @@ public class Constants {
     public static final int REDIS_CLUSTER_REDIR_UNSTABLE = 2; /* Keys in slot resharding. */
     public static final int REDIS_CLUSTER_REDIR_ASK = 3; /* -ASK redirection required. */
     public static final int REDIS_CLUSTER_REDIR_MOVED = 4; /* -MOVED redirection required. */
+
+
+    /*----------Others ------------*/
+    public static final int REDIS_LRU_BITS = 24;
+    public static final int REDIS_LRU_CLOCK_MAX = ((1<<REDIS_LRU_BITS)-1); /* Max value of obj->lru */
+    public static final int REDIS_LRU_CLOCK_RESOLUTION = 1000; /* LRU clock resolution in ms */
+
+
+    /* ----------Redis command table -------*/
+    public static final List<RedisCommand> redisCommandTable = new ArrayList<RedisCommand>();
 }
