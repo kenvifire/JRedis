@@ -112,7 +112,7 @@ public class Server {
         server.lua_time_limit = REDIS_LUA_TIME_LIMIT;
         server.lua_client = null;
         server.lua_timedout = 0;
-        server.migrate_cached_sockets = Dict.createDict( new MigrateCacheDictType() , null);
+        server.migrate_cached_sockets = Dict.dictCreate(new MigrateCacheDictType(), null);
         server.next_client_id = 1; /* Client IDs, start from 1 .*/
         server.loading_process_events_interval_bytes = (1024 * 1024 * 2);
 
@@ -163,8 +163,8 @@ public class Server {
     /* Command table -- we initiialize it here as it is part of the
      * initial configuration, since command names may be changed via
      * redis.conf using the rename-command directive. */
-        server.commands = Dict.createDict( new CommandTableDictType() , null);
-        server.orig_commands = Dict.createDict(new CommandTableDictType() , null);
+        server.commands = Dict.dictCreate(new CommandTableDictType(), null);
+        server.orig_commands = Dict.dictCreate(new CommandTableDictType(), null);
         populateCommandTable();
         server.delCommand = lookupCommandByCString("del");
         server.multiCommand = lookupCommandByCString("multi");
