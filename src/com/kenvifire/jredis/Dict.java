@@ -2,6 +2,8 @@ package com.kenvifire.jredis;
 
 import sun.jvm.hotspot.utilities.Assert;
 
+import java.util.Calendar;
+
 /**
  * Created by hannahzhang on 15/4/8.
  */
@@ -33,16 +35,32 @@ public class Dict<K,V> {
 
     /* -------------------------- private prototypes ---------------------------- */
 
-    private int _dictExpandIfNeeded(Dict ht){
-        //TODO
-        return 0;
+    private int _dictExpandIfNeeded(){
+        if(dictIsRehashing()) return DICT_OK;
+
+        if(ht[0].size == 0) return dictExpand(DICT_HT_INITIAL_SIZE);
+
+        if(ht[0].used >= ht[0].size &&
+                (dict_can_resize ||
+                ht[0].used/ht[0].size > dict_force_resize_ratio)){
+            return dictExpand(ht[0].used * 2);
+        }
+
+        return DICT_OK;
     }
 
 
-    private int _dictKeyIndex(Dict ht,Object key){
-        //TODO _dictKeyIndex
-        return 0;
+    private int _dictKeyIndex(Object key){
+        int h, idx, table;
+        DictEntry he;
+
+        if(_dictExpandIfNeeded() == DICT_ERR)
+            return -1;
+
+        h =
     }
+
+
 
     private void _dictInit(Dict d,DictType type, Object privData){
         d.ht[0]._dictReset();
@@ -148,6 +166,40 @@ public class Dict<K,V> {
         }
 
     }
+
+    private int dictRehashMilliseconds(int ms){
+        long start = System.currentTimeMillis();
+        int rehashes = 0;
+
+        while(dictRehash(100) > 0){
+            rehashes += 100;
+            if(System.currentTimeMillis() - start > ms) break;
+        }
+
+        return rehashes;
+    }
+
+    public int dictAdd(K key, V val){
+       DictEntry<K,V>  =
+    }
+
+    private DictEntry dictAddRaw(Object key){
+        int index;
+        DictEntry entry;
+        DictHt ht;
+
+        if(dictIsRehashing()) _dictRehashStep();
+
+        if((index = _dictKeyIndex()))
+    }
+
+    public void _dictRehashStep(){
+        if( this.iterators == 0) dictRehash(1);
+    }
+
+
+
+
 
     /* -------------------------- hash functions -------------------------------- */
 
