@@ -1,5 +1,7 @@
 package com.kenvifire.jredis;
 
+import sun.jvm.hotspot.utilities.Assert;
+
 /**
  * Created by hannahzhang on 15/4/8.
  */
@@ -65,11 +67,69 @@ public class Dict<K,V> {
 
     }
 
-    private void dictExpand(long size){
-        DictHt n;
+    private int dictExpand(long size){
+        DictHt n = new DictHt();
 
         long realsize = _dictNextPower(size);
 
+        if(dictIsRehashing() || ht[0].used > size){
+           return DICT_ERR;
+        }
+
+        n.size = realsize;
+        n.sizemask = realsize - 1;
+        n.table = new DictEntry[(int)realsize];
+        n.used = 0;
+
+        if(ht[0].table == null){
+            ht[0] = n;
+            return DICT_OK;
+        }
+
+        ht[1] = n;
+        rehashidx = 0;
+        return DICT_OK;
+
+
+    }
+
+    public int dictRehash(int n){
+        DictEntry de,nextde;
+
+        if(!dictIsRehashing()) return 0;
+
+        while(n-->0) {
+            if (ht[0].used == 0) {
+                ht[0].table = null;
+                ht[1]._dictReset();
+                rehashidx = -1;
+                return 0;
+            }
+
+
+            Assert.that(ht[0].size > (long) rehashidx, "rehashidx can't overflow");
+
+            while (ht[0].table[(int) rehashidx] == null) rehashidx++;
+
+            de = ht[0].table[(int) rehashidx];
+
+            while (de != null) {
+                int h;
+
+                nextde = de.next;
+
+                h = (int) (type.hashFunction(de.key) & ht[1].sizemask);
+                de.next = ht[1].table[h];
+                ht[1].table[h] = de;
+                ht[0].used--;
+                ht[1].used++;
+                de = nextde;
+            }
+
+            ht[0].table[(int) rehashidx] = null;
+            rehashidx++;
+        }
+        return 1;
     }
 
     private boolean dictIsRehashing(){
@@ -127,13 +187,13 @@ public class Dict<K,V> {
     }
 
     static class DictHt<K,V> {
-        DictEntry<K,V> head;
+        DictEntry<K,V>[] table;
         long size;
         long sizemask;
         long used;
 
         public void _dictReset(){
-            this.head = null;
+            this.table = null;
             this.size = 0;
             this.sizemask = 0;
             this.used = 0;
