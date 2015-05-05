@@ -10,13 +10,13 @@ public class CommandTableDictType implements DictType{
     }
 
     @Override
-    public void keyDup(Object privdata, Object key) {
-
+    public Object keyDup(Object privdata, Object key) {
+        return null;
     }
 
     @Override
-    public void valDup(Object privdata, Object obj) {
-
+    public Object valDup(Object privdata, Object obj) {
+        return null;
     }
 
     @Override

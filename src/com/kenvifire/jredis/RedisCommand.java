@@ -4,7 +4,7 @@ package com.kenvifire.jredis;
  * Created by hannahzhang on 15/4/8.
  */
 public class RedisCommand {
-    private String command;
+    private String name;
     private IRedisCommandProc proc;
     private int arity;
     private String sflags;
@@ -16,12 +16,12 @@ public class RedisCommand {
     private int keystep;
     private long microseconds, calls;
 
-    public String getCommand() {
-        return command;
+    public String getName() {
+        return name;
     }
 
-    public void setCommand(String command) {
-        this.command = command;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public IRedisCommandProc getProc() {

@@ -51,13 +51,30 @@ public class Dict<K,V> {
 
 
     private int _dictKeyIndex(Object key){
-        int h, idx, table;
+        int h, idx=0, table;
         DictEntry he;
 
         if(_dictExpandIfNeeded() == DICT_ERR)
             return -1;
 
-        h =
+        h = type.hashFunction(key);
+
+        for(table = 0; table <= 1; table++){
+            idx = h & (int)ht[table].sizemask;
+
+            he = ht[table].table[idx];
+
+            while (he != null){
+                if(type.keyCompare(privdata,key,he.key) == 0)
+                    return -1;
+
+                he = he.next;
+            }
+            if(!dictIsRehashing()) break;
+
+        }
+
+        return idx;
     }
 
 
@@ -180,7 +197,11 @@ public class Dict<K,V> {
     }
 
     public int dictAdd(K key, V val){
-       DictEntry<K,V>  =
+       DictEntry<K,V>  entry = dictAddRaw(key);
+        if(entry == null) return DICT_ERR;
+
+        dictSetVal(entry,val);
+        return DICT_OK;
     }
 
     private DictEntry dictAddRaw(Object key){
@@ -190,13 +211,65 @@ public class Dict<K,V> {
 
         if(dictIsRehashing()) _dictRehashStep();
 
-        if((index = _dictKeyIndex()))
+        if((index = _dictKeyIndex(key)) == -1)
+            return null;
+
+        ht = dictIsRehashing() ? this.ht[1] : this.ht[0];
+        entry = new DictEntry();
+        entry.next = ht.table[index];
+        ht.table[index] = entry;
+        ht.used++;
+
+        dictSetKey(entry,key);
+        return entry;
+
+
+
+    }
+
+    private void dictSetKey(DictEntry entry,Object key){
+        entry.key = type.keyDup(privdata,key);
+
+    }
+
+    private void dictSetVal(DictEntry entry,Object val){
+        entry.v = type.valDup(privdata,val);
     }
 
     public void _dictRehashStep(){
         if( this.iterators == 0) dictRehash(1);
     }
 
+    public Object dictFetchValue(Object key){
+        DictEntry he;
+        he = dictFind(key);
+
+        return he != null ? he.v : null;
+    }
+
+    private DictEntry dictFind(Object key){
+        DictEntry he;
+
+        int h,idx,table;
+
+        if(ht[0].size == 0) return null;
+        if(dictIsRehashing()) _dictRehashStep();
+        h = type.hashFunction(key);
+
+        for(table = 0; table <= 1;table++){
+            idx = h & (int) ht[table].sizemask;
+            he = ht[table].table[idx];
+
+            while (he != null){
+                if(type.keyCompare(privdata,key,he.key) == 0 )
+                    return he;
+                he = he.next;
+            }
+
+            if(!dictIsRehashing()) return null;
+        }
+        return null;
+    }
 
 
 

@@ -1,5 +1,7 @@
 package com.kenvifire.jredis;
 
+import sun.jvm.hotspot.utilities.Assert;
+
 import java.util.Calendar;
 
 import static com.kenvifire.jredis.Constants.*;
@@ -152,7 +154,7 @@ public class Server {
 
     /* Client output buffer limits */
         for (j = 0; j < REDIS_CLIENT_TYPE_COUNT; j++)
-            server.client_obuf_limits[j] = clientBufferLimitsDefaults[j];
+            server.client_obuf_limits[j] = Config.clientBufferLimitsDefaults[j];
 
     /* Double constants initialization */
 //        R_Zero = 0.0;
@@ -192,7 +194,7 @@ public class Server {
         return (int)(Calendar.getInstance().getTimeInMillis()/Long.valueOf(REDIS_LRU_CLOCK_RESOLUTION)) & REDIS_LRU_CLOCK_MAX;
     }
 
-    void populateCommandTable() {
+    static void populateCommandTable() {
         int j;
 
         for (j = 0; j < redisCommandTable.size(); j++) {
@@ -215,17 +217,22 @@ public class Server {
                     case 'M': c.setFlag(c.getFlag()| REDIS_CMD_SKIP_MONITOR); break;
                     case 'k': c.setFlag(c.getFlag()| REDIS_CMD_ASKING); break;
                     case 'F': c.setFlag(c.getFlag()| REDIS_CMD_FAST); break;
-                    default: throw new RedisRuntimeException("Unsupported command flag"); break;
+                    default: throw new RedisRuntimeException("Unsupported command flag");
                 }
                 i++;
             }
 
-            retval1 = dictAdd(server.commands, sdsnew(c->name), c);
+            retval1 = RedisServer.getInstance().commands.dictAdd(c.getName(),c);
+            //dictAdd(server.commands, sdsnew(c->name), c);
         /* Populate an additional dictionary that will be unaffected
          * by rename-command statements in redis.conf. */
-            retval2 = dictAdd(server.orig_commands, sdsnew(c->name), c);
-            redisAssert(retval1 == DICT_OK && retval2 == DICT_OK);
+            retval2 = RedisServer.getInstance().orig_commands.dictAdd(c.getName(),c);
+            // dictAdd(server.orig_commands, sdsnew(c->name), c);
+            Assert.that(retval1 == Dict.DICT_OK && retval2 == Dict.DICT_OK,"populate command table");
         }
+    }
+    static  RedisCommand lookupCommandByCString(String s){
+        return (RedisCommand)RedisServer.getInstance().commands.dictFetchValue(s);
     }
 
 
