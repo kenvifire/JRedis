@@ -16,6 +16,23 @@ public class Server {
         server.sentinel_mode = checkForSentinelMode(args);
         initServerConfig(server);
 
+        if(server.sentinel_mode){
+            initSentinelConfig();
+            initSentinel();
+        }
+
+        if(args.length >= 2){
+            int j = 1;
+            String options = "";
+            String configfile = null;
+
+            if("-v".equals(args[1])
+                    || "--version".equals(args[1]))
+                version();
+
+
+        }
+
 
     }
 
@@ -26,6 +43,12 @@ public class Server {
             if ("--sentinel".equals(args[j])) return true;
         }
         return false;
+    }
+
+    static void version(){
+        System.out.println(String.format("Redis server v=%s sha=%s:%d malloc=%s bits=%d build=%llx\n",
+                RedisVersion.REDIS_VERSION,Release.redisGitSHA1(),
+                )
     }
 
     public static void initServerConfig(RedisServer server) {
@@ -233,6 +256,14 @@ public class Server {
     }
     static  RedisCommand lookupCommandByCString(String s){
         return (RedisCommand)RedisServer.getInstance().commands.dictFetchValue(s);
+    }
+
+    static void initSentinelConfig(){
+
+    }
+
+    static void initSentinel(){
+
     }
 
 

@@ -27,7 +27,7 @@ public class Dict<K,V> {
     }
     public static Dict dictCreate(DictType type, Object privdata){
         Dict d = new Dict();
-        d._dictInit(d, type, privdata);
+        d._dictInit(type, privdata);
         return d;
     }
 
@@ -79,13 +79,15 @@ public class Dict<K,V> {
 
 
 
-    private void _dictInit(Dict d,DictType type, Object privData){
-        d.ht[0]._dictReset();
-        d.ht[1]._dictReset();
-        d.type = type;
-        d.privdata = privData;
-        d.rehashidx = -1;
-        d.iterators = 0;
+    private void _dictInit(DictType type, Object privData){
+        ht[0] = new DictHt();
+        ht[1]= new DictHt();
+        ht[0]._dictReset();
+        ht[1]._dictReset();
+        this.type = type;
+        privdata = privData;
+        rehashidx = -1;
+        iterators = 0;
     }
 
     private int dictResize(){
