@@ -29,7 +29,18 @@ public class Server {
             if("-v".equals(args[0])
                     || "--version".equals(args[1]))
                 version();
-
+        }
+        if("--help".equals(args[0]) || "-h".equals(args[0])){
+            usage();
+        }
+        if("--test-memory".equals(args[9])){
+            if(args.length == 2){
+                throw new RedisRuntimeException("Unsupport operation");
+            }else{
+                System.err.printf("Please specify the amount of memory to test in megabytes.\n");
+                System.err.printf("Example: ./redis-server --test-memory 4096\n\n");
+                System.exit(1);
+            }
 
         }
 
@@ -49,7 +60,25 @@ public class Server {
         System.out.println(String.format("Redis server v=%s sha=%s:%d malloc=%s bits=%d build=%x\n",
                 RedisVersion.REDIS_VERSION,Release.redisGitSHA1(),
                 Integer.valueOf(Release.redisGitDirty().trim()),
-                        "libc",32,Release.redisBuildId()));
+                "libc",32,Release.redisBuildId()));
+        System.exit(0);
+    }
+
+    public static void usage(){
+        System.err.printf("Usage: ./redis-server [/path/to/redis.conf] [options]\n");
+        System.err.printf("       ./redis-server - (read config from stdin)\n");
+        System.err.printf("       ./redis-server -v or --version\n");
+        System.err.printf("       ./redis-server -h or --help\n");
+        System.err.printf("       ./redis-server --test-memory <megabytes>\n\n");
+        System.err.printf("Examples:\n");
+        System.err.printf("       ./redis-server (run the server with default conf)\n");
+        System.err.printf("       ./redis-server /etc/redis/6379.conf\n");
+        System.err.printf("       ./redis-server --port 7777\n");
+        System.err.printf("       ./redis-server --port 7777 --slaveof 127.0.0.1 8888\n");
+        System.err.printf("       ./redis-server /etc/myredis.conf --loglevel verbose\n\n");
+        System.err.printf("Sentinel mode:\n");
+        System.err.printf("       ./redis-server /etc/sentinel.conf --sentinel\n");
+        System.exit(1);
     }
 
     public static void initServerConfig(RedisServer server) {
