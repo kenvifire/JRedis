@@ -16,7 +16,7 @@ public class Release {
         return REDIS_GIT_DIRTY;
     }
 
-    public long redisBuildId(){
+    public static long redisBuildId(){
         String buildid = RedisVersion.REDIS_VERSION + REDIS_BUILD_ID + REDIS_GIT_DIRTY + REDIS_GIT_SHA1;
         return CRC64.digest(buildid.getBytes());
     }

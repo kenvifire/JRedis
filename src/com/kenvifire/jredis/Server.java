@@ -21,12 +21,12 @@ public class Server {
             initSentinel();
         }
 
-        if(args.length >= 2){
+        if(args.length >= 1){
             int j = 1;
             String options = "";
             String configfile = null;
 
-            if("-v".equals(args[1])
+            if("-v".equals(args[0])
                     || "--version".equals(args[1]))
                 version();
 
@@ -46,9 +46,10 @@ public class Server {
     }
 
     static void version(){
-        System.out.println(String.format("Redis server v=%s sha=%s:%d malloc=%s bits=%d build=%llx\n",
+        System.out.println(String.format("Redis server v=%s sha=%s:%d malloc=%s bits=%d build=%x\n",
                 RedisVersion.REDIS_VERSION,Release.redisGitSHA1(),
-                )
+                Integer.valueOf(Release.redisGitDirty().trim()),
+                        "libc",32,Release.redisBuildId()));
     }
 
     public static void initServerConfig(RedisServer server) {
