@@ -379,4 +379,13 @@ public class Constants {
 
     /* ----------Redis command table -------*/
     public static final List<RedisCommand> redisCommandTable = new ArrayList<RedisCommand>();
+
+    static {
+
+    }
+
+
+    public static class  Sentinel{
+        public static final int REDIS_SENTINEL_PORT = 26379;
+    }
 }

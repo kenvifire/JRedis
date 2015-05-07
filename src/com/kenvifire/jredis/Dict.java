@@ -273,6 +273,15 @@ public class Dict<K,V> {
         return null;
     }
 
+    public void dictEmpty(Callback callback){
+        ht[0]._dictClear(callback);
+        ht[1]._dictClear(callback);
+        rehashidx = -1;
+        iterators = 0;
+
+    }
+
+
 
 
 
@@ -305,15 +314,27 @@ public class Dict<K,V> {
 
 
 
-    static class DictEntry<K,V> {
+    class DictEntry<K,V> {
         K key;
         V v;
 
         DictEntry next;
 
+        void dictFreeKey(){
+            if(type != null){
+                type.keyDestructor(privdata,key);
+            }
+        }
+
+        void dictFreeVal(){
+            if(type != null){
+                type.valDestructor(privdata,key);
+            }
+        }
+
     }
 
-    static class DictHt<K,V> {
+    class DictHt<K,V> {
         DictEntry<K,V>[] table;
         long size;
         long sizemask;
@@ -324,6 +345,25 @@ public class Dict<K,V> {
             this.size = 0;
             this.sizemask = 0;
             this.used = 0;
+        }
+
+        public void _dictClear(Callback callback){
+            for(int i=0; i < size && used >0 ;i++){
+                DictEntry he, nextHe;
+
+                if(callback != null && (i&65535) == 0) callback.apply(privdata);
+
+                if((he = table[i]) == null) continue;
+
+                while (he != null){
+                    nextHe = he.next;
+                    he.dictFreeKey();
+                    he.dictFreeVal();
+                    he = null;
+                    used--;
+                    he = nextHe;
+                }
+            }
         }
     }
 

@@ -17,6 +17,7 @@ public class Server {
         initServerConfig(server);
 
         if(server.sentinel_mode){
+            SentinelState sentinel = SentinelState.getSentinelState();
             initSentinelConfig();
             initSentinel();
         }
@@ -289,10 +290,16 @@ public class Server {
     }
 
     static void initSentinelConfig(){
+        RedisServer.getInstance().port = Sentinel.REDIS_SENTINEL_PORT;
+
 
     }
 
     static void initSentinel(){
+        int j;
+
+        RedisServer.getInstance().commands.dictEmpty(null);
+
 
     }
 
