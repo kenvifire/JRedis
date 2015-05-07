@@ -61,19 +61,13 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc commandCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
-
     public static IRedisCommandProc existsCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
+
 
     public static IRedisCommandProc setbitCommand = new IRedisCommandProc() {
         @Override
@@ -215,19 +209,13 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc lrangCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
-
     public static IRedisCommandProc lrangeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
+
 
     public static IRedisCommandProc ltrimCommand = new IRedisCommandProc() {
         @Override
@@ -341,54 +329,6 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc sinterCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
-
-    public static IRedisCommandProc sinterstoreCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
-
-    public static IRedisCommandProc sunionCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
-
-    public static IRedisCommandProc sunionstoreCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
-
-    public static IRedisCommandProc sdiffCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
-
-    public static IRedisCommandProc sdiffstoreCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
-
-    public static IRedisCommandProc sinterCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
 
     public static IRedisCommandProc sscanCommand = new IRedisCommandProc() {
         @Override
@@ -460,19 +400,13 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
-
     public static IRedisCommandProc zrangebyscoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
+
 
     public static IRedisCommandProc zreverangebyscoreCommand = new IRedisCommandProc() {
         @Override
@@ -789,6 +723,13 @@ public class RedisCommandProc {
         }
     };
 
+    public static IRedisCommandProc pingCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+
     public static IRedisCommandProc saveCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
@@ -859,12 +800,6 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc syncCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
 
     public static IRedisCommandProc replconfCommand = new IRedisCommandProc() {
         @Override
@@ -1027,12 +962,6 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc restoreCommand = new IRedisCommandProc() {
-        @Override
-        public void apply(RedisClient c) {
-
-        }
-    };
 
     public static IRedisCommandProc migrateCommand = new IRedisCommandProc() {
         @Override
@@ -1041,7 +970,7 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc askigCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc askingCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
@@ -1138,17 +1067,49 @@ public class RedisCommandProc {
 
         }
     };
-    public static IRedisCommandProc bitposCommand = new IRedisCommandProc() {
+
+    public static IRedisCommandProc commandCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
-    public static IRedisCommandProc bitposCommand = new IRedisCommandProc() {
+
+    public static IRedisCommandProc pfselftestCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
+
+    public static IRedisCommandProc pfaddCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+
+    public static IRedisCommandProc pfmergeCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+
+    public static IRedisCommandProc pfdebugCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+
+    public static IRedisCommandProc lantencyCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+
+
 
 }
