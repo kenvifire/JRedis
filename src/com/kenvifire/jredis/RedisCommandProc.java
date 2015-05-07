@@ -12,7 +12,7 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc settCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
@@ -61,7 +61,7 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc commandCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
@@ -131,329 +131,329 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc lpushCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc rpushxCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc lpushxCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc linsertCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc rpopCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc lpopCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc brpopCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc brpoplpushCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc blpopCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc llenCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc lindexCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc lsetCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc lrangCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc lrangeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc ltrimCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc lremCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc rpoplpushCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc saddCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sremCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc smoveCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sismemberCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc scardCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc spopCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc srandmemberCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sinterCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sinterstoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sunionCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sunionstoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sdiffCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sdiffstoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sinterCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sinterstoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sunionCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sunionstoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sdiffCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sdiffstoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sinterCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sscanCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zaddCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zincrbyCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zremCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zremrangebyscoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zremrangebyrankCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zrenrangbylexCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zunionstoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zinterstoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zrangeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
@@ -467,672 +467,684 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zrangebyscoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zreverangebyscoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zrangebylexCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zrevrangebylexCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zcountCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zlexcountCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zrevrangeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zcardCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zscoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zrankCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zrevrankCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zscanCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hsetCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hsetnxCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hgetCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hmsetCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hmgetCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hincrbyCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hincrbyfloatCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hdelCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hlenCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hkeysCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hvalsCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hgetallCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hexistsCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc hscanCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc incrbyCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc decrbyCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc incrbyfloatCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc getsetCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc msetCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc msetnxCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc randomkeyCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc selectCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc moveCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc renameCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc renamenxCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc expireCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc expireatCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc pexpireCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc pexpireatCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc keysCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc scanCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc dbsizeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc authCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc echoCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc saveCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc bgsaveCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc bgrewriteaofCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc shutdownCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc lastsaveCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc typeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc multiCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc execCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc discardCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc syncCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc syncCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc replconfCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc flushdbCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc flushallCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc sortCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc infoCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc monitorCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc ttlCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc pttlCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc persistCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc slaveofCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc roleCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc debugCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc configCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc subscribeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc unsubscribeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc psubscribeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc punsubscribeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc publishCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc pubsubCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc watchCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc unwatchCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc clusterCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc restoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc restoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc migrateCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc askigCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc readonlyCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc readwriteCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc dumpCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc objectCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc clientCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc evalCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc evalShaCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc slowlogCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc scriptCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc timeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc bitopCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc bitcountCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc bitposCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+    public static IRedisCommandProc bitposCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+    public static IRedisCommandProc bitposCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
