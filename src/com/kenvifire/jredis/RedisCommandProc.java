@@ -3,7 +3,7 @@ package com.kenvifire.jredis;
 /**
  * Created by hannahzhang on 15/5/7.
  */
-public class RedisCommandProc {
+public  class RedisCommandProc {
 
     public static IRedisCommandProc getCommand = new IRedisCommandProc() {
         @Override
@@ -12,7 +12,7 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc settCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc setCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
@@ -83,14 +83,14 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc setRangeCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc setrangeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
         }
     };
 
-    public static IRedisCommandProc getRangeCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc getrangeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
@@ -372,7 +372,7 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc zrenrangbylexCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zremrangebylexCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
@@ -408,7 +408,7 @@ public class RedisCommandProc {
     };
 
 
-    public static IRedisCommandProc zreverangebyscoreCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc zrevrangebyscoreCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
@@ -1068,6 +1068,13 @@ public class RedisCommandProc {
         }
     };
 
+    public static IRedisCommandProc waitCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+
     public static IRedisCommandProc commandCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
@@ -1089,7 +1096,12 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc pfmergeCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc pfcountCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };    public static IRedisCommandProc pfmergeCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 
@@ -1103,7 +1115,7 @@ public class RedisCommandProc {
         }
     };
 
-    public static IRedisCommandProc lantencyCommand = new IRedisCommandProc() {
+    public static IRedisCommandProc latencyCommand = new IRedisCommandProc() {
         @Override
         public void apply(RedisClient c) {
 

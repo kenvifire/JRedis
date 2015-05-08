@@ -2,9 +2,14 @@ package com.kenvifire.jredis;
 
 import sun.jvm.hotspot.utilities.Assert;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
 
 import static com.kenvifire.jredis.Constants.*;
+import static com.kenvifire.jredis.RedisCommandProc.*;
+import static com.kenvifire.jredis.RedisGetKeysProc.*;
 
 /**
  * Created by hannahzhang on 15/4/8.
@@ -282,7 +287,7 @@ public class Server {
          * by rename-command statements in redis.conf. */
             retval2 = RedisServer.getInstance().orig_commands.dictAdd(c.getName(),c);
             // dictAdd(server.orig_commands, sdsnew(c->name), c);
-            Assert.that(retval1 == Dict.DICT_OK && retval2 == Dict.DICT_OK,"populate command table");
+            boolean result = (retval1 == Dict.DICT_OK) && (retval2 == Dict.DICT_OK);
         }
     }
     static  RedisCommand lookupCommandByCString(String s){
@@ -302,6 +307,176 @@ public class Server {
 
 
     }
+
+    private static List<RedisCommand> redisCommandTable = new ArrayList<RedisCommand>();
+
+    static {
+
+        redisCommandTable.add(new RedisCommand("get",getCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("set",setCommand,-3,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("setnx",setnxCommand,3,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("setex",setexCommand,4,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("psetex",psetexCommand,4,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("append",appendCommand,3,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("strlen",strlenCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("del",delCommand,-2,"w",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("exists",existsCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("setbit",setbitCommand,4,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("getbit",getbitCommand,3,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("setrange",setrangeCommand,4,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("getrange",getrangeCommand,4,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("substr",getrangeCommand,4,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("incr",incrCommand,2,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("decr",decrCommand,2,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("mget",mgetCommand,-2,"r",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("rpush",rpushCommand,-3,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("lpush",lpushCommand,-3,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("rpushx",rpushxCommand,3,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("lpushx",lpushxCommand,3,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("linsert",linsertCommand,5,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("rpop",rpopCommand,2,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("lpop",lpopCommand,2,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("brpop",brpopCommand,-3,"ws",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("brpoplpush",brpoplpushCommand,4,"wms",0,null,1,2,1,0,0));
+        redisCommandTable.add(new RedisCommand("blpop",blpopCommand,-3,"ws",0,null,1,-2,1,0,0));
+        redisCommandTable.add(new RedisCommand("llen",llenCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("lindex",lindexCommand,3,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("lset",lsetCommand,4,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("lrange",lrangeCommand,4,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("ltrim",ltrimCommand,4,"w",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("lrem",lremCommand,4,"w",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("rpoplpush",rpoplpushCommand,3,"wm",0,null,1,2,1,0,0));
+        redisCommandTable.add(new RedisCommand("sadd",saddCommand,-3,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("srem",sremCommand,-3,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("smove",smoveCommand,4,"wF",0,null,1,2,1,0,0));
+        redisCommandTable.add(new RedisCommand("sismember",sismemberCommand,3,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("scard",scardCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("spop",spopCommand,-2,"wRsF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("srandmember",srandmemberCommand,-2,"rR",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("sinter",sinterCommand,-2,"rS",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("sinterstore",sinterstoreCommand,-3,"wm",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("sunion",sunionCommand,-2,"rS",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("sunionstore",sunionstoreCommand,-3,"wm",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("sdiff",sdiffCommand,-2,"rS",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("sdiffstore",sdiffstoreCommand,-3,"wm",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("smembers",sinterCommand,2,"rS",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("sscan",sscanCommand,-3,"rR",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zadd",zaddCommand,-4,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zincrby",zincrbyCommand,4,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zrem",zremCommand,-3,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zremrangebyscore",zremrangebyscoreCommand,4,"w",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zremrangebyrank",zremrangebyrankCommand,4,"w",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zremrangebylex",zremrangebylexCommand,4,"w",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zunionstore",zunionstoreCommand,-4,"wm",0,zunionInterGetKeys,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("zinterstore",zinterstoreCommand,-4,"wm",0,zunionInterGetKeys,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("zrange",zrangeCommand,-4,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zrangebyscore",zrangebyscoreCommand,-4,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zrevrangebyscore",zrevrangebyscoreCommand,-4,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zrangebylex",zrangebylexCommand,-4,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zrevrangebylex",zrevrangebylexCommand,-4,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zcount",zcountCommand,4,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zlexcount",zlexcountCommand,4,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zrevrange",zrevrangeCommand,-4,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zcard",zcardCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zscore",zscoreCommand,3,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zrank",zrankCommand,3,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zrevrank",zrevrankCommand,3,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("zscan",zscanCommand,-3,"rR",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hset",hsetCommand,4,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hsetnx",hsetnxCommand,4,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hget",hgetCommand,3,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hmset",hmsetCommand,-4,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hmget",hmgetCommand,-3,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hincrby",hincrbyCommand,4,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hincrbyfloat",hincrbyfloatCommand,4,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hdel",hdelCommand,-3,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hlen",hlenCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hkeys",hkeysCommand,2,"rS",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hvals",hvalsCommand,2,"rS",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hgetall",hgetallCommand,2,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hexists",hexistsCommand,3,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("hscan",hscanCommand,-3,"rR",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("incrby",incrbyCommand,3,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("decrby",decrbyCommand,3,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("incrbyfloat",incrbyfloatCommand,3,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("getset",getsetCommand,3,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("mset",msetCommand,-3,"wm",0,null,1,-1,2,0,0));
+        redisCommandTable.add(new RedisCommand("msetnx",msetnxCommand,-3,"wm",0,null,1,-1,2,0,0));
+        redisCommandTable.add(new RedisCommand("randomkey",randomkeyCommand,1,"rR",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("select",selectCommand,2,"rlF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("move",moveCommand,3,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("rename",renameCommand,3,"w",0,null,1,2,1,0,0));
+        redisCommandTable.add(new RedisCommand("renamenx",renamenxCommand,3,"wF",0,null,1,2,1,0,0));
+        redisCommandTable.add(new RedisCommand("expire",expireCommand,3,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("expireat",expireatCommand,3,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("pexpire",pexpireCommand,3,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("pexpireat",pexpireatCommand,3,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("keys",keysCommand,2,"rS",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("scan",scanCommand,-2,"rR",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("dbsize",dbsizeCommand,1,"rF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("auth",authCommand,2,"rsltF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("ping",pingCommand,-1,"rtF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("echo",echoCommand,2,"rF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("save",saveCommand,1,"ars",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("bgsave",bgsaveCommand,1,"ar",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("bgrewriteaof",bgrewriteaofCommand,1,"ar",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("shutdown",shutdownCommand,-1,"arlt",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("lastsave",lastsaveCommand,1,"rRF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("type",typeCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("multi",multiCommand,1,"rsF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("exec",execCommand,1,"sM",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("discard",discardCommand,1,"rsF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("sync",syncCommand,1,"ars",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("psync",syncCommand,3,"ars",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("replconf",replconfCommand,-1,"arslt",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("flushdb",flushdbCommand,1,"w",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("flushall",flushallCommand,1,"w",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("sort",sortCommand,-2,"wm",0,sortGetKeys,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("info",infoCommand,-1,"rlt",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("monitor",monitorCommand,1,"ars",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("ttl",ttlCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("pttl",pttlCommand,2,"rF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("persist",persistCommand,2,"wF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("slaveof",slaveofCommand,3,"ast",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("role",roleCommand,1,"lst",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("debug",debugCommand,-2,"as",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("config",configCommand,-2,"art",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("subscribe",subscribeCommand,-2,"rpslt",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("unsubscribe",unsubscribeCommand,-1,"rpslt",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("psubscribe",psubscribeCommand,-2,"rpslt",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("punsubscribe",punsubscribeCommand,-1,"rpslt",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("publish",publishCommand,3,"pltrF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("pubsub",pubsubCommand,-2,"pltrR",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("watch",watchCommand,-2,"rsF",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("unwatch",unwatchCommand,1,"rsF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("cluster",clusterCommand,-2,"ar",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("restore",restoreCommand,-4,"wm",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("restore-asking",restoreCommand,-4,"wmk",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("migrate",migrateCommand,-6,"w",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("asking",askingCommand,1,"r",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("readonly",readonlyCommand,1,"rF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("readwrite",readwriteCommand,1,"rF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("dump",dumpCommand,2,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("object",objectCommand,3,"r",0,null,2,2,2,0,0));
+        redisCommandTable.add(new RedisCommand("client",clientCommand,-2,"rs",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("eval",evalCommand,-3,"s",0,evalGetKeys,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("evalsha",evalShaCommand,-3,"s",0,evalGetKeys,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("slowlog",slowlogCommand,-2,"r",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("script",scriptCommand,-2,"rs",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("time",timeCommand,1,"rRF",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("bitop",bitopCommand,-4,"wm",0,null,2,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("bitcount",bitcountCommand,-2,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("bitpos",bitposCommand,-3,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("wait",waitCommand,3,"rs",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("command",commandCommand,0,"rlt",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("pfselftest",pfselftestCommand,1,"r",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("pfadd",pfaddCommand,-2,"wmF",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("pfcount",pfcountCommand,-2,"r",0,null,1,1,1,0,0));
+        redisCommandTable.add(new RedisCommand("pfmerge",pfmergeCommand,-2,"wm",0,null,1,-1,1,0,0));
+        redisCommandTable.add(new RedisCommand("pfdebug",pfdebugCommand,-3,"w",0,null,0,0,0,0,0));
+        redisCommandTable.add(new RedisCommand("latency",latencyCommand,-2,"arslt",0,null,0,0,0,0,0));
+    }
+
 
 
 }

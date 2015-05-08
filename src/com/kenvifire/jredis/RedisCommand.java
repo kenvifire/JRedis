@@ -1,20 +1,40 @@
 package com.kenvifire.jredis;
 
+import sun.plugin2.main.server.ResultID;
+
 /**
  * Created by hannahzhang on 15/4/8.
  */
 public class RedisCommand {
     private String name;
     private IRedisCommandProc proc;
-    private int arity;
+    private Integer arity;
     private String sflags;
 
     private int flag;
 
-    private int firstKey;
-    private int lastKey;
+    private IRedisGetKeysProc getKeys_proc;
+    private Integer firstKey;
+    private Integer lastKey;
     private int keystep;
     private long microseconds, calls;
+
+    public RedisCommand(String name,IRedisCommandProc proc,Integer arity,String sflags,
+                        Integer flag,IRedisGetKeysProc getKeys_proc,Integer firstKey,
+                        Integer lastKey, int keystep,long microseconds,long calls){
+        this.name = name;
+        this.proc = proc;
+        this.arity = arity;
+        this.sflags = sflags;
+        this.flag = flag;
+        this.getKeys_proc = getKeys_proc;
+        this.firstKey = firstKey;
+        this.lastKey = lastKey;
+        this.keystep = keystep;
+        this.microseconds = microseconds;
+        this.calls = calls;
+
+    }
 
     public String getName() {
         return name;
