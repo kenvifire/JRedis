@@ -1122,6 +1122,32 @@ public  class RedisCommandProc {
         }
     };
 
+    public static IRedisCommandProc sentinelCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
 
 
+    public static IRedisCommandProc sentinelPublishCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+
+    public static IRedisCommandProc sentinelInfoCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
+
+    public static IRedisCommandProc sentinelRoleCommand = new IRedisCommandProc() {
+        @Override
+        public void apply(RedisClient c) {
+
+        }
+    };
 }

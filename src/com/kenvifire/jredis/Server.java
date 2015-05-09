@@ -306,6 +306,7 @@ public class Server {
         RedisServer.getInstance().commands.dictEmpty(null);
 
 
+
     }
 
     private static List<RedisCommand> redisCommandTable = new ArrayList<RedisCommand>();
