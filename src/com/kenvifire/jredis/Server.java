@@ -305,6 +305,22 @@ public class Server {
 
         RedisServer.getInstance().commands.dictEmpty(null);
 
+        for(int i =0; i< Sentinel.sentinelcmds.size(); i++){
+            RedisCommand cmd = Sentinel.sentinelcmds.get(i);
+            RedisServer.getInstance().commands.dictAdd(cmd.getName(),cmd);
+        }
+
+        SentinelState sentinel = SentinelState.getSentinelState();
+        sentinel.current_epoch = 0;
+        sentinel.masters = Dict.dictCreate(InstancesDictType.getInstancesDictType(),null);
+        sentinel.tilt = 0;
+        sentinel.titl_start_time = 0;
+        sentinel.previous_time = System.currentTimeMillis();
+        sentinel.running_scripts = 0;
+        sentinel.scripts_queue = new ArrayList();
+        sentinel.announce_ip = null;
+        sentinel.announce_port = 0;
+
 
 
     }
