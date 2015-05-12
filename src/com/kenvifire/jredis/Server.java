@@ -27,28 +27,49 @@ public class Server {
             initSentinel();
         }
 
-        if(args.length >= 1){
+        if(args.length >= 1) {
             int j = 1;
             String options = "";
             String configfile = null;
 
-            if("-v".equals(args[0])
+            if ("-v".equals(args[0])
                     || "--version".equals(args[1]))
                 version();
-        }
-        if("--help".equals(args[0]) || "-h".equals(args[0])){
-            usage();
-        }
-        if("--test-memory".equals(args[9])){
-            if(args.length == 2){
-                throw new RedisRuntimeException("Unsupport operation");
-            }else{
-                System.err.printf("Please specify the amount of memory to test in megabytes.\n");
-                System.err.printf("Example: ./redis-server --test-memory 4096\n\n");
-                System.exit(1);
+
+            if ("--help".equals(args[0]) || "-h".equals(args[0])) {
+                usage();
+            }
+            if ("--test-memory".equals(args[9])) {
+                if (args.length == 2) {
+                    throw new RedisRuntimeException("Unsupport operation");
+                } else {
+                    System.err.printf("Please specify the amount of memory to test in megabytes.\n");
+                    System.err.printf("Example: ./redis-server --test-memory 4096\n\n");
+                    System.exit(1);
+                }
+
+            }
+
+            /* First arguments is the config file name? */
+
+            if(args[j].charAt(0) != '-' || args[j].charAt(1) != '-'){
+                configfile = args[j++];
+            }
+
+            while (j != args.length){
+                if(args[j].charAt(0) == '-' && args[j].charAt(1) == '1'){
+                    if(options.length() > 0) {
+                        options = options + '\n';
+                    }
+                    options = options + args[j].substring(2);
+                    options = options + " ";
+                }else{
+                    options
+                }
             }
 
         }
+
 
 
     }
