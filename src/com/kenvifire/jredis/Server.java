@@ -2,9 +2,7 @@ package com.kenvifire.jredis;
 
 import sun.jvm.hotspot.utilities.Assert;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 
 import static com.kenvifire.jredis.Constants.*;
@@ -29,7 +27,7 @@ public class Server {
 
         if(args.length >= 1) {
             int j = 1;
-            String options = "";
+            Map<String,String> options = new HashMap<String,String>();
             String configfile = null;
 
             if ("-v".equals(args[0])
@@ -56,19 +54,27 @@ public class Server {
                 configfile = args[j++];
             }
 
+            String optKey = null, optVal = null;
             while (j != args.length){
+
                 if(args[j].charAt(0) == '-' && args[j].charAt(1) == '1'){
-                    if(options.length() > 0) {
-                        options = options + '\n';
-                    }
-                    options = options + args[j].substring(2);
-                    options = options + " ";
+                    optKey = args[j].substring(2);
                 }else{
-                    options
+                    optVal = args[j];
                 }
+                options.put(optKey,optVal);
+                j++;
             }
 
+            if(server.sentinel_mode && configfile !=null && configfile.charAt(0) == '-'){
+                RedisLog.redisLog(REDIS_WARNING,"Sentinel config from STDIN not allowed.");
+                RedisLog.redisLog(REDIS_WARNING,"Sentinel needs config file on disk to save state.Existing ...");
+                System.exit(1);
+            }
+            resetServerSaveParams();
+
         }
+
 
 
 
@@ -515,6 +521,14 @@ public class Server {
         redisCommandTable.add(new RedisCommand("latency",latencyCommand,-2,"arslt",0,null,0,0,0,0,0));
     }
 
+    public static void resetServerSaveParams(){
+        RedisServer.getInstance().saveparams = null;
+    }
 
+    public static void loadServerConfig(String configfile,Map<String,String> options){
+        if(configfile != null){
+
+        }
+    }
 
 }
