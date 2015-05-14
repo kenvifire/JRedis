@@ -1,5 +1,7 @@
 package com.kenvifire.jredis;
 
+import sun.management.FileSystem;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -628,20 +630,22 @@ public class Server {
                             } else if (argc == 2 && "".equals(args[1])) {
                                 resetServerSaveParams();
                             }
-                        } else if (!strcasecmp(argv[0],"dir") && argc == 2) {
-                            if (chdir(argv[1]) == -1) {
-                                redisLog(REDIS_WARNING,"Can't chdir to '%s': %s",
-                                        argv[1], strerror(errno));
-                                exit(1);
-                            }
-                        } else if (!strcasecmp(argv[0],"loglevel") && argc == 2) {
-                            if (!strcasecmp(argv[1],"debug")) server.verbosity = REDIS_DEBUG;
-                            else if (!strcasecmp(argv[1],"verbose")) server.verbosity = REDIS_VERBOSE;
-                            else if (!strcasecmp(argv[1],"notice")) server.verbosity = REDIS_NOTICE;
-                            else if (!strcasecmp(argv[1],"warning")) server.verbosity = REDIS_WARNING;
+                        } else if ("dir".equals(args[0]) && argc == 2) {
+                            //TODO  chdir
+//                            if (chdir(argv[1]) == -1) {
+//                                redisLog(REDIS_WARNING,"Can't chdir to '%s': %s",
+//                                        argv[1], strerror(errno));
+//                                exit(1);
+//                            }
+                        } else if ("loglevel".equals(args[0]) && argc == 2) {
+                            if ("debug".equals(args[1])) server.verbosity = REDIS_DEBUG;
+                            else if ("verbose".equals(args[1])) server.verbosity = REDIS_VERBOSE;
+                            else if ("notice".equals(args[1])) server.verbosity = REDIS_NOTICE;
+                            else if ("warning".equals(args[1])) server.verbosity = REDIS_WARNING;
                             else {
                                 err = "Invalid log level. Must be one of debug, notice, warning";
-                                goto loaderr;
+                                hasError = true;
+                                continue;
                             }
                         } else if (!strcasecmp(argv[0],"logfile") && argc == 2) {
                             FILE *logfp;
@@ -919,7 +923,7 @@ public class Server {
                                 err = "argument must be 'yes' or 'no'"; goto loaderr;
                             }
                         } else if (!strcasecmp(argv[0],"cluster-node-timeout") && argc == 2) {
-                            server.cluster_node_timeout = strtoll(argv[1],NULL,10);
+                            server.cluster_node_timeout = strtoll(argv[1], NULL, 10);
                             if (server.cluster_node_timeout <= 0) {
                                 err = "cluster node timeout must be 1 or greater"; goto loaderr;
                             }
