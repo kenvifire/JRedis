@@ -527,6 +527,17 @@ public class Server {
         RedisServer.getInstance().saveparams = null;
     }
 
+    public static void appendSaveParams(long seconds, int changes){
+        RedisServer server = RedisServer.redisServerInstance;
+        server.saveparams = new SaveParam[server.saveparamslen + 1];
+        SaveParam saveParam = new SaveParam();
+        saveParam.setSeconds(seconds);
+        saveParam.setChanges(changes);
+        server.saveparams[server.saveparamslen] = saveParam;
+        server.saveparamslen++;
+
+    }
+
     public static void loadServerConfig(String filename, Map<String,String> options){
 
         if(configfile != null){
@@ -594,21 +605,27 @@ public class Server {
                             server.bindaddr_count = addresses;
                         } else if ("unixsocket".equals(args[0]) && argc == 2) {
                             server.unixsocket = args[1];
-                        } else if (!strcasecmp(argv[0],"unixsocketperm") && argc == 2) {
-                            errno = 0;
-                            server.unixsocketperm = (mode_t)strtol(argv[1], NULL, 8);
-                            if (errno || server.unixsocketperm > 0777) {
-                                err = "Invalid socket file permissions"; goto loaderr;
+                        } else if ("unixsocketperm".equals(args[0]) && argc == 2) {
+                            Long value = NumberUtils.parseLong(args[1]);
+
+                            if (value == null || server.unixsocketperm > 0777) {
+                                err = "Invalid socket file permissions";
+                                hasError = true;
+                                continue;
+                            }else {
+                                server.unixsocketperm = value.intValue();
                             }
-                        } else if (!strcasecmp(argv[0],"save")) {
+                        } else if ("save".equals(args[0])) {
                             if (argc == 3) {
-                                int seconds = atoi(argv[1]);
-                                int changes = atoi(argv[2]);
+                                int seconds = NumberUtils.parseInt(args[1]);
+                                int changes = NumberUtils.parseInt(args[2]);
                                 if (seconds < 1 || changes < 0) {
-                                    err = "Invalid save parameters"; goto loaderr;
+                                    err = "Invalid save parameters";
+                                    hasError = true;
+                                    continue;
                                 }
-                                appendServerSaveParams(seconds,changes);
-                            } else if (argc == 2 && !strcasecmp(argv[1],"")) {
+                                appendSaveParams(seconds, changes);
+                            } else if (argc == 2 && "".equals(args[1])) {
                                 resetServerSaveParams();
                             }
                         } else if (!strcasecmp(argv[0],"dir") && argc == 2) {
@@ -794,7 +811,7 @@ public class Server {
                                 err = "argument must be 'yes' or 'no'"; goto loaderr;
                             }
                         } else if (!strcasecmp(argv[0],"appendfsync") && argc == 2) {
-                            if (!strcasecmp(argv[1],"no")) {
+                            if (!strcasecmp(argv[1], "no")) {
                                 server.aof_fsync = AOF_FSYNC_NO;
                             } else if (!strcasecmp(argv[1],"always")) {
                                 server.aof_fsync = AOF_FSYNC_ALWAYS;
@@ -923,11 +940,11 @@ public class Server {
                                 goto loaderr;
                             }
                         } else if (!strcasecmp(argv[0],"lua-time-limit") && argc == 2) {
-                            server.lua_time_limit = strtoll(argv[1],NULL,10);
+                            server.lua_time_limit = strtoll(argv[1], NULL, 10);
                         } else if (!strcasecmp(argv[0],"slowlog-log-slower-than") &&
                                 argc == 2)
                         {
-                            server.slowlog_log_slower_than = strtoll(argv[1],NULL,10);
+                            server.slowlog_log_slower_than = strtoll(argv[1], NULL, 10);
                         } else if (!strcasecmp(argv[0],"latency-monitor-threshold") &&
                                 argc == 2)
                         {

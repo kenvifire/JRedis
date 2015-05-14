@@ -145,7 +145,7 @@ public class RedisServer {
     public long dirty;
     public long dirty_before_gbsave;
     public long rdb_child_bpid;
-    public List<SaveParam> saveparams;
+    public SaveParam[] saveparams;
     public int saveparamslen;
     public String rdb_filename;
     public int rdb_compression;

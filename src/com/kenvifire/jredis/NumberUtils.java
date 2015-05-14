@@ -11,4 +11,14 @@ public class NumberUtils {
             return null;
         }
     }
+
+    public static  Long parseLong(String str){
+        try{
+          return  Long.valueOf(str);
+        }catch (NumberFormatException e){
+            return null;
+        }
+    }
+
+
 }
