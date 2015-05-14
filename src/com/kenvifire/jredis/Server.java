@@ -575,21 +575,25 @@ public class Server {
                             }
                         }else if ("tcp-backlog".equals(args[1]) && argc == 2) {
                             Integer value = NumberUtils.parseInt(args[1]);
-                            server.tcp_backlog = atoi(argv[1]);
                             if (value == null || value < 0) {
                                 err = "Invalid backlog value";
+                                hasError = true;
+                                continue;
                             }
-                        } else if (!strcasecmp(argv[0],"bind") && argc >= 2) {
+                            server.tcp_backlog = value;
+                        } else if ("bind".equals(args[0]) && argc >= 2) {
                             int j, addresses = argc-1;
 
                             if (addresses > REDIS_BINDADDR_MAX) {
-                                err = "Too many bind addresses specified"; goto loaderr;
+                                err = "Too many bind addresses specified";
+                                hasError = true;
+                                continue;
                             }
                             for (j = 0; j < addresses; j++)
-                                server.bindaddr[j] = zstrdup(argv[j+1]);
+                                server.bindaddr.add(args[j+1]);
                             server.bindaddr_count = addresses;
-                        } else if (!strcasecmp(argv[0],"unixsocket") && argc == 2) {
-                            server.unixsocket = zstrdup(argv[1]);
+                        } else if ("unixsocket".equals(args[0]) && argc == 2) {
+                            server.unixsocket = args[1];
                         } else if (!strcasecmp(argv[0],"unixsocketperm") && argc == 2) {
                             errno = 0;
                             server.unixsocketperm = (mode_t)strtol(argv[1], NULL, 8);
