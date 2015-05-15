@@ -2,10 +2,7 @@ package com.kenvifire.jredis;
 
 import sun.management.FileSystem;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 
@@ -647,25 +644,32 @@ public class Server {
                                 hasError = true;
                                 continue;
                             }
-                        } else if (!strcasecmp(argv[0],"logfile") && argc == 2) {
-                            FILE *logfp;
+                        } else if ("logfile".equals(args[0]) && argc == 2) {
+                            server.logfile = null;
+                            server.logfile = args[1];
+                            if (!server.logfile.isEmpty()) {
+                            // Test if we are able to open the file. The server will not
+                            //be able to abort just for this problem later... */
+                                RandomAccessFile file;
+                                try{
+                                   file =  new RandomAccessFile(server.logfile,"a");
 
-                            zfree(server.logfile);
-                            server.logfile = zstrdup(argv[1]);
-                            if (server.logfile[0] != '\0') {
-                /* Test if we are able to open the file. The server will not
-                 * be able to abort just for this problem later... */
-                                logfp = fopen(server.logfile,"a");
-                                if (logfp == NULL) {
-                                    err = sdscatprintf(sdsempty(),
-                                            "Can't open the log file: %s", strerror(errno));
-                                    goto loaderr;
-                                }
-                                fclose(logfp);
+                               }catch (IOException e){
+                                   err = "Can't open the log file: " + e.getMessage();
+                                   hasError = true;
+                               }finally {
+                                   IOUtils.closeQuietly(file);
+                                    continue;
+                               }
                             }
-                        } else if (!strcasecmp(argv[0],"syslog-enabled") && argc == 2) {
-                            if ((server.syslog_enabled = yesnotoi(argv[1])) == -1) {
-                                err = "argument must be 'yes' or 'no'"; goto loaderr;
+                        } else if ("syslog-enabled".equals(args[0]) && argc == 2) {
+                            YesNoEnum value = YesNoEnum.parse(args[1]);
+                            if (value == null) {
+                                err = "argument must be 'yes' or 'no'";
+                                hasError = true;
+                                continue;
+                            }else{
+                                server.syslog_enabled = value.getCode();
                             }
                         } else if (!strcasecmp(argv[0],"syslog-ident") && argc == 2) {
                             if (server.syslog_ident) zfree(server.syslog_ident);
