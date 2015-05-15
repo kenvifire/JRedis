@@ -306,16 +306,16 @@ public class RedisServer {
         return redisServerInstance;
     }
 
-    public void appendServerSaveParams(long seconds, int changes){
-        if(this.saveparams == null){
-            saveparams = new ArrayList<SaveParam>();
-        }
-        SaveParam saveParam = new SaveParam();
-        saveParam.setSeconds(seconds);
-        saveParam.setChanges(changes);
-
-        saveparams.add(saveParam);
-    }
+//    public void appendServerSaveParams(long seconds, int changes){
+//        if(this.saveparams == null){
+//            saveparams = new SaveParam;
+//        }
+//        SaveParam saveParam = new SaveParam();
+//        saveParam.setSeconds(seconds);
+//        saveParam.setChanges(changes);
+//
+//        saveparams.add(saveParam);
+//    }
 
 
 }
