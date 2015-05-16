@@ -671,10 +671,11 @@ public class Server {
                             }else{
                                 server.syslog_enabled = value.getCode();
                             }
-                        } else if (!strcasecmp(argv[0],"syslog-ident") && argc == 2) {
-                            if (server.syslog_ident) zfree(server.syslog_ident);
-                            server.syslog_ident = zstrdup(argv[1]);
-                        } else if (!strcasecmp(argv[0],"syslog-facility") && argc == 2) {
+                        } else if ("syslog-ident".equals(args[0]) && argc == 2) {
+                            server.syslog_ident = null;
+                            server.syslog_ident = args[1];
+                            continue;
+                        } else if ("syslog-facility".equals(args[0]) && argc == 2) {
                             int i;
 
                             for (i = 0; validSyslogFacilities[i].name; i++) {
@@ -1018,13 +1019,14 @@ public class Server {
                                 goto loaderr;
                             }
                             server.supervised_mode = mode;
-                        } else if (!strcasecmp(argv[0],"sentinel")) {
+                        } else if ("sentinel".equals(argc[0])) {
             /* argc == 1 is handled by main() as we need to enter the sentinel
              * mode ASAP. */
                             if (argc != 1) {
                                 if (!server.sentinel_mode) {
                                     err = "sentinel directive while not in sentinel mode";
-                                    goto loaderr;
+                                    hasError = true;
+                                    continue;
                                 }
                                 err = sentinelHandleConfiguration(argv+1,argc-1);
                                 if (err) goto loaderr;
