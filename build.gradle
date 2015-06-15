@@ -15,3 +15,15 @@ dependencies{
 	testCompile 'junit:junit:4.11'
 }
 
+sourceSets{
+	main{
+		java{
+			srcDirs =['src']
+		}
+	}
+}
+
+task taskJar(type:Jar) {
+	from 'build/classes'
+	destinationDir = file('build/libs')
+}
