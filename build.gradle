@@ -10,6 +10,7 @@ repositories{
 }
 
 dependencies{
+	compile 'io.netty:netty-all:5.0.0.Alpha2'
 	testCompile 'org.hamcrest:hamcrest-core:1.3'
 	testCompile 'junit:junit:4.11'
 }
