@@ -24,15 +24,26 @@ public class JMemcachedServer {
     public void run() throws Exception{
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
+        int numOfWorkers = 4;
+        WorkerThread[] workerThreads = new WorkerThread[numOfWorkers];
+
+        for(int i =0 ; i < numOfWorkers; i++){
+            workerThreads[i] = new WorkerThread();
+        }
+
+        JMemcachedServiceHandler jMemcachedServiceHandler =
+             new JMemcachedServiceHandler(workerThreads);
 
         try{
+
+
             ServerBootstrap b = new ServerBootstrap(); // (2)
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class) // (3)
                     .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new JMemcachedServiceHandler());
+                            ch.pipeline().addLast(jMemcachedServiceHandler);
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG,128)
