@@ -45,6 +45,7 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
 
                 switch (commandEnum){
                     case SET:
+
                         break;
 
                 }
@@ -54,5 +55,10 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
         }finally {
             ReferenceCountUtil.release(msg);
         }
+    }
+
+    private CacheItem parseItem(String[] commandLine){
+
+
     }
 }
