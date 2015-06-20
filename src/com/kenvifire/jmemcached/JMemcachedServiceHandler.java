@@ -45,13 +45,12 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
 
             CommandEnum command;
             CacheItem cacheItem;
+            CommandParam param = new CommandParam();
 
             if(!hasRn){
                command = CommandEnum.INVALID;
             }else{
                 String[] commandLine = cmdBuilder.toString().split(" ");
-                String key = commandLine[1];
-                List<String> keys;
                 CommandEnum commandEnum = CommandEnum.parseCommand(commandLine[0]);
 
                 switch (commandEnum){
@@ -60,11 +59,13 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
                     case REPLACE:
                     case APPEND:
                     case PREPEND:
+                            param.setKey(commandLine[1]);
                             cacheItem = parseItem(commandLine, false);
                         break;
                     case GET:
                     case GETS:
-                            keys = parseKeys(commandLine);
+                            param.setKey(commandLine[1]);
+                            param.setKeys(parseKeys(commandLine));
                         break;
 
                     default:
@@ -73,6 +74,8 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
 
 
             }
+
+
 
 
         }finally {
@@ -86,7 +89,7 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
             cacheItem.setKey(commandLine[1]);
             cacheItem.setFlags(Integer.parseInt(commandLine[2]));
             cacheItem.setExpTime(Long.parseLong(commandLine[3]));
-            cacheItem.setBytes(Long.parseLong(commandLine[4]));
+            cacheItem.setBytes(Integer.parseInt(commandLine[4]));
 
             if(withCAS){
                 cacheItem.setCasUnique(Long.parseLong(commandLine[5]));
