@@ -6,8 +6,8 @@ package com.kenvifire.jmemcached;
 public class CacheItem {
     private String key;
     private long expTime;
-    private long flags;
-    private long bytes;
+    private int flags;
+    private int bytes;
     private long casUnique;
     private byte[] data;
 
@@ -19,19 +19,19 @@ public class CacheItem {
         this.expTime = expTime;
     }
 
-    public long getFlags() {
+    public int getFlags() {
         return flags;
     }
 
-    public void setFlags(long flags) {
+    public void setFlags(int flags) {
         this.flags = flags;
     }
 
-    public long getBytes() {
+    public int getBytes() {
         return bytes;
     }
 
-    public void setBytes(long bytes) {
+    public void setBytes(int bytes) {
         this.bytes = bytes;
     }
 
