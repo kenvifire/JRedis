@@ -33,7 +33,7 @@ public enum CommandEnum {
                 return commandEnum;
             }
         }
-        return null;
+        return INVALID;
     }
 
 }

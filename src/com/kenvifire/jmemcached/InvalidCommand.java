@@ -6,6 +6,11 @@ package com.kenvifire.jmemcached;
 public class InvalidCommand implements ICommand{
     @Override
     public ICommandResult process() {
-        return null;
+        return new ICommandResult() {
+            @Override
+            public String resultValue() {
+                return CommandResultConstants.ERROR;
+            }
+        };
     }
 }

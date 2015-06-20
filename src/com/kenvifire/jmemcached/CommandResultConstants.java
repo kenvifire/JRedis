@@ -21,4 +21,6 @@ public class CommandResultConstants {
 
     public static final String TOUCHED = "TOUCHED\r\n";
 
+    public static final String ERROR = "ERROR\r\n";
+
 }

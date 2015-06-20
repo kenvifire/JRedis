@@ -30,9 +30,10 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
             boolean hasRn = false;
             boolean noreply = false;
             while(in.isReadable()){
-                char c = in.readChar();
+                char c = (char)in.readByte();
+                System.out.print(c);
                 if(c == '\r'){
-                    if(in.isReadable() && in.readChar() == '\n'){
+                    if(in.isReadable() && (char)in.readByte() == '\n'){
                         hasRn = true;
                        break;
                     }
@@ -77,7 +78,11 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
 
             ICommand actualCommand = CommandProcessorFactory.getCommand(command,param);
             ICommandResult result = actualCommand.process();
-            ctx.write(result.resultValue());
+            String resultMsg = result.resultValue();
+            final ByteBuf resultBuf = ctx.alloc().buffer(resultMsg.getBytes().length);
+            resultBuf.writeBytes(resultMsg.getBytes());
+            ctx.write(resultBuf);
+            ctx.flush();
 
         }finally {
             ReferenceCountUtil.release(msg);
