@@ -43,7 +43,7 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
 
             noreply = cmdBuilder.toString().contains("noreplay");
 
-            CommandEnum command;
+            CommandEnum command = CommandEnum.INVALID;
             CacheItem cacheItem;
             CommandParam param = new CommandParam();
 
@@ -75,8 +75,9 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
 
             }
 
-
-
+            ICommand actualCommand = CommandProcessorFactory.getCommand(command,param);
+            ICommandResult result = actualCommand.process();
+            ctx.write(result.resultValue());
 
         }finally {
             ReferenceCountUtil.release(msg);
