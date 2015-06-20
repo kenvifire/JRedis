@@ -16,6 +16,10 @@ public class CommandParam {
     private long casUnique;
     private byte[] data;
 
+    /*** for error **/
+    private String errorMsg;
+    private ErrorType errorType;
+
 
 
     public String getKey() {
@@ -88,5 +92,21 @@ public class CommandParam {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    public ErrorType getErrorType() {
+        return errorType;
+    }
+
+    public void setErrorType(ErrorType errorType) {
+        this.errorType = errorType;
     }
 }

@@ -3,10 +3,8 @@ package com.kenvifire.jmemcached;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPromise;
 import io.netty.util.ReferenceCountUtil;
 
-import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +26,8 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
         try{
             StringBuilder cmdBuilder = new StringBuilder();
             boolean hasRn = false;
-            boolean noreply = false;
+            boolean noReply = false;
+            boolean hasData = true;
             while(in.isReadable()){
                 char c = (char)in.readByte();
                 System.out.print(c);
@@ -42,11 +41,12 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
                 cmdBuilder.append(c);
             }
 
-            noreply = cmdBuilder.toString().contains("noreplay");
+            noReply = cmdBuilder.toString().contains("noreplay");
 
             CommandEnum command = CommandEnum.INVALID;
             CacheItem cacheItem;
             CommandParam param = new CommandParam();
+            String errorMsg;
 
             if(!hasRn){
                command = CommandEnum.INVALID;
@@ -60,14 +60,70 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
                     case REPLACE:
                     case APPEND:
                     case PREPEND:
-                            param.setKey(commandLine[1]);
-                            cacheItem = parseItem(commandLine, false);
+                            if(commandLine.length != 5 || commandLine.length != 6) {
+                                param.setKey(commandLine[1]);
+                                cacheItem = parseItem(commandLine, false);
+
+                                if (cacheItem == null) {
+                                    param.setErrorType(ErrorType.CLIENT_ERROR);
+                                    break;
+                                }
+
+                                int bytes = param.getBytes();
+
+                                if(bytes > MemcachedConstants.MAX_DATA_LEN){
+                                    param.setErrorType(ErrorType.SERVER_ERROR);
+                                    param.setErrorMsg(CommandResultConstants.OBJECT_TOO_LARGE);
+                                }else if(bytes < 0){
+                                    param.setErrorType(ErrorType.CLIENT_ERROR);
+                                    param.setErrorMsg(CommandResultConstants.BAD_CMD_FORMAT);
+                                }
+
+                            }else{
+                                commandEnum = CommandEnum.INVALID;
+                            }
                         break;
                     case GET:
                     case GETS:
-                            param.setKey(commandLine[1]);
-                            param.setKeys(parseKeys(commandLine));
+                            if(commandLine.length >= 2) {
+                                param.setKey(commandLine[1]);
+                                param.setKeys(parseKeys(commandLine));
+                            }else{
+                                commandEnum = CommandEnum.INVALID;
+                            }
                         break;
+                    case DELETE:
+                            if(commandLine.length == 2 || commandLine.length == 3){
+                               param.setKey(commandLine[1]);
+                            }else {
+                                commandEnum = CommandEnum.INVALID;
+                            }
+                    case INCR:
+                    case DECR:
+                            if(commandLine.length == 3 || commandLine.length == 4){
+                                param.setKey(commandLine[1]);
+                                try {
+                                    long value = Long.parseLong(commandLine[2]);
+                                    param.setValue(value);
+                                }catch (NumberFormatException e){
+                                    errorMsg = CommandResultConstants.INVALID_NUMERIC;
+                                    commandEnum = CommandEnum.INVALID;
+                                }
+                            }else{
+                                commandEnum = CommandEnum.INVALID;
+                            }
+                        break;
+                    case TOUCH:
+                            if(commandLine.length == 3 || commandLine.length == 4){
+                                param.setKey(commandLine[1]);
+                                try{
+                                    long expTime = Long.parseLong(commandLine[2]);
+                                }catch (NumberFormatException e){
+                                    //TODO
+                                    commandEnum = CommandEnum.INVALID;
+                                }
+
+                            }
 
                     default:
                         break;

@@ -23,4 +23,15 @@ public class CommandResultConstants {
 
     public static final String ERROR = "ERROR\r\n";
 
+    public static final String INVALID_NUMERIC = "CLIENT_ERROR invalid numeric delta argument\r\n";
+
+    public static final String OBJECT_TOO_LARGE = "object too large for cache";
+
+    public static final String SERVER_ERROR = "SERVER_ERROR %s\r\n";
+
+    public static final String CLIENT_ERROR = "CLIENT_ERROR %s\r\n";
+
+    public static final String BAD_CMD_FORMAT = "bad command line format";
+
+
 }
