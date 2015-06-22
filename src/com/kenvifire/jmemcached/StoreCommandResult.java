@@ -10,4 +10,9 @@ public class StoreCommandResult implements ICommandResult{
     public String resultValue() {
         return null;
     }
+
+    @Override
+    public ErrorType getErrorType() {
+        return null;
+    }
 }

@@ -74,10 +74,13 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
                                 if(bytes > MemcachedConstants.MAX_DATA_LEN){
                                     param.setErrorType(ErrorType.SERVER_ERROR);
                                     param.setErrorMsg(CommandResultConstants.OBJECT_TOO_LARGE);
+                                    break;
                                 }else if(bytes < 0){
                                     param.setErrorType(ErrorType.CLIENT_ERROR);
                                     param.setErrorMsg(CommandResultConstants.BAD_CMD_FORMAT);
+                                    break;
                                 }
+
 
                             }else{
                                 commandEnum = CommandEnum.INVALID;
@@ -133,12 +136,21 @@ public class JMemcachedServiceHandler extends ChannelHandlerAdapter{
             }
 
             ICommand actualCommand = CommandProcessorFactory.getCommand(command,param);
+
+
             ICommandResult result = actualCommand.process();
+
+
+
             String resultMsg = result.resultValue();
             final ByteBuf resultBuf = ctx.alloc().buffer(resultMsg.getBytes().length);
             resultBuf.writeBytes(resultMsg.getBytes());
             ctx.write(resultBuf);
             ctx.flush();
+
+            if(result.getErrorType() == ErrorType.SERVER_ERROR){
+                ctx.close();
+            }
 
         }finally {
             ReferenceCountUtil.release(msg);

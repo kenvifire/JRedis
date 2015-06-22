@@ -5,4 +5,5 @@ package com.kenvifire.jmemcached;
  */
 public interface ICommandResult {
    public String resultValue();
+   public ErrorType getErrorType();
 }

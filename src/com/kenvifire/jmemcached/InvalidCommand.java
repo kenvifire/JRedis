@@ -11,6 +11,11 @@ public class InvalidCommand implements ICommand{
             public String resultValue() {
                 return CommandResultConstants.ERROR;
             }
+
+            @Override
+            public ErrorType getErrorType() {
+                return null;
+            }
         };
     }
 }
